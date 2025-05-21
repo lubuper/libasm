@@ -3,6 +3,7 @@ global ft_strcmp
 
 ft_strcmp:
 	xor rcx, rcx
+
 .loop:
 	movzx eax, byte [rdi + rcx]
 	movzx r8d, byte [rsi + rcx]
@@ -18,6 +19,7 @@ ft_strcmp:
 	movzx ecx, r8b
 	sub eax, ecx
 	ret
+
 .equal:
 	xor eax, eax
 	ret

@@ -2,12 +2,15 @@ section .text
 global ft_strlen
 
 ft_strlen:
-		mov rcx, 0
+		xor rcx, rcx
+
 .loop:
-	cmp [rdi + rcx], 0
+	mov al, byte [rdi + rcx]
+	test al, al
 	je .end
 	inc rcx
 	jmp .loop
+
 .end:
 	mov rax, rcx
 	ret
