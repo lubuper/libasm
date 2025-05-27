@@ -1,8 +1,8 @@
 section .text
-global ft_strlen
+global ft_strlen ; size_t ft_strlen(const char *s1)
 
 ft_strlen:
-		xor rcx, rcx
+	xor rcx, rcx
 
 .loop:
 	mov al, byte [rdi + rcx]
