@@ -1,9 +1,12 @@
+%define ENOMEM 12
+
 section .text
 global	ft_strdup ; char *strdup(const char *s);
 
 extern ft_strlen
 extern ft_strcpy
 extern malloc
+extern __errno_location
 
 ft_strdup:
 	push rdi ; save string pointer to stack
@@ -25,9 +28,9 @@ ft_strdup:
 
 
 .error:
-	mov edi, ENOMEM
+	mov edi, ENOMEM ; ENOMEM is a macro in C headers with the value of 12 (not enough memory)
 	call __errno_location
-	mov dword [rax], ENOMEM
+	mov dword [rax], ENOMEM ; store 32bit, 12 at *(int *)rax
 	pop rdi ; free stack
 	xor rax, rax ; clear rax
 	ret

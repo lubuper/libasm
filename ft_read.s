@@ -1,7 +1,9 @@
 section .text
 global ft_read ; ssize_t ft_read(int fd, void *buff, size_t count)
 
-ft_write:
+extern __errno_location
+
+ft_read:
 	mov rax, 0 ; syscall number for read in linux x86_64, on Mac is 0x2000004
 	syscall
 	jc .error

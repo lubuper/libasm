@@ -1,10 +1,10 @@
 LIB_NAME = libasm.a
-LIB_SRC =	ft_strlen.s
-		ft_strcpy.s
-		ft_strcmp.s
-		ft_write.s
-		ft_read.s
-		ft_strdup.s
+LIB_SRC =	ft_strlen.s \
+	ft_strcpy.s \
+	ft_strcmp.s \
+	ft_write.s \
+	ft_read.s \
+	ft_strdup.s
 
 LIB_OBJ = $(LIB_SRC:.s=.o)
 
@@ -18,6 +18,7 @@ TEST_NAME = tester
 TEST_SRC = main.c
 
 all: $(LIB_NAME)
+	@echo "\033[32mCompiled library\033[0m"
 
 $(LIB_NAME): $(LIB_OBJ)
 	ar rcs $@ $^

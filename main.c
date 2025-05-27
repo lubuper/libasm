@@ -1,11 +1,12 @@
 # include <stdio.h>
+# include <stdlib.h>
 
 extern int ft_strcmp(const char *s1, const char*s2);
 extern int ft_strlen(const char *s1);
 extern ssize_t ft_write(int fd, const void *buf, size_t count);
 extern ssize_t ft_read(int fd, void *buf, size_t count);
 extern char *ft_strcpy(char *dest, const char *src);
-extern char *strdup(const char *s);
+extern char *ft_strdup(const char *s);
 
 int main(void) {
 	const char *s1 = "Hello";
@@ -22,6 +23,7 @@ int main(void) {
 	int		result3 = ft_strcmp(s1, s4);
 	int		result4 = ft_strcmp(s1, s5);
 	char 	*result6 = malloc(sizeof(char) * 17 + 1);
+	char	*result7;
 
 	printf(" \033[33m### Testing ft_strlen ###\033[0m\n");
 	printf("'Hello' length is: %d\n", length);
@@ -37,7 +39,7 @@ int main(void) {
 	printf(" ### \033[33mTesting ft_read ###\033[0m\n");
 	char buffer[100];
 	printf("Enter something: ");
-	ssize_t sample_read = ft_read(0, buffer, sizeof(buffer) - 1);
+	ssize_t	sample_read = ft_read(0, buffer, sizeof(buffer) - 1);
 	if (sample_read == -1)
 	{
 		perror("\033[31mft_read failed, exiting\033[0m");
@@ -49,9 +51,10 @@ int main(void) {
 
 	printf(" ### \033[33mTesting ft_write ###\033[0m\n");
 	ssize_t 	result5 = ft_write(1, s6, 17);
-	if (result5 == -1)
+	if (result5 == -1) {
 		perror("\033[31mft_write failed, exiting\033[0m");
 		return -1;
+	}
 	printf(" ### ---- ###\n");
 
 	printf(" \033[33m### Testing ft_strcpy ###\033[0m\n");
@@ -61,7 +64,7 @@ int main(void) {
 		return -1;
 	}
 	ft_strcpy(result6, s7);
-	printf(result6);
+	printf("%s", result6);
 	printf(" ### ---- ###\n");
 
 	printf(" ### \033[33mTesting ft_strdup ###\033[0m\n");
@@ -70,6 +73,6 @@ int main(void) {
 
 	printf(" ### \033[33mEnd of Testing ###\033[0m\n");
 	free(result6);
-	free(result7);
+	//free(result7);
 	return 0;
 }
