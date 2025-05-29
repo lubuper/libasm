@@ -2,7 +2,7 @@ section .text
 global ft_strcpy ; char *ft_strcpy(char *dest, const char *src);
 
 ft_strcpy:
-	mov rax, rdi ; destination pointer saved to return register
+	mov rdx, rdi ; destination pointer saved to another register
 
 .loop:
 	mov al, byte [rsi] ; load byte from src (rsi) to al
@@ -14,4 +14,5 @@ ft_strcpy:
 	jmp .loop
 
 .end:
+	mov rax, rdx ; return original dest pointer
 	ret ; return rax that is being used to show dst (rdi)

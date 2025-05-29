@@ -1,12 +1,16 @@
-LIB_NAME = libasm.a
-LIB_SRC =	ft_strlen.s \
-	ft_strcpy.s \
-	ft_strcmp.s \
-	ft_write.s \
-	ft_read.s \
-	ft_strdup.s
+LIB_NAME = lib/libasm.a
+LIB_SRC =	src/ft_strlen.s \
+	src/ft_strcpy.s \
+	src/ft_strcmp.s \
+	src/ft_write.s \
+	src/ft_read.s \
+	src/ft_strdup.s
 
-LIB_OBJ = $(LIB_SRC:.s=.o)
+OBJ_DIR = obj
+LIB_DIR = lib
+BIN_DIR = bin
+
+LIB_OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(LIB_SRC:.s=.o)))
 
 ASM = nasm
 ASM_FLAGS = -f elf64 -g
@@ -17,13 +21,17 @@ CFLAGS = -Wall -Wextra -Werror -g
 TEST_NAME = tester
 TEST_SRC = main.c
 
-all: $(LIB_NAME)
+all: $(LIB_DIR) $(OBJ_DIR) $(LIB_NAME)
 	@echo "\033[32mCompiled library\033[0m"
 
-$(LIB_NAME): $(LIB_OBJ)
+$(LIB_DIR) $(OBJ_DIR) $(BIN_DIR):
+	@echo creating folders
+	mkdir -p $@
+
+$(LIB_NAME): $(LIB_OBJ) | $(LIB_DIR)
 	ar rcs $@ $^
 
-%.o: %.s
+$(OBJ_DIR)/%.o: src/%.s | $(OBJ_DIR)
 	$(ASM) $(ASM_FLAGS) $< -o $@
 
 test: $(LIB_NAME)
@@ -31,12 +39,12 @@ test: $(LIB_NAME)
 	@echo "\033[32mCompiled test binary: ./$(TEST_NAME)\033[0m"
 
 clean:
-	rm -f $(LIB_OBJ)
+	rm -rf $(OBJ_OBJ) $(TEST_NAME)
 
 fclean: clean
-	rm -f $(LIB_NAME) $(TEST_NAME)
+	rm -rf $(LIB_DIR) $(BIN_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean
+.PHONY: all clean fclean re test
 .SILENT:
