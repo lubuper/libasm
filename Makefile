@@ -39,7 +39,7 @@ test: $(LIB_NAME)
 	@echo "\033[32mCompiled test binary: ./$(TEST_NAME)\033[0m"
 
 clean:
-	rm -rf $(OBJ_OBJ) $(TEST_NAME)
+	rm -rf $(OBJ_DIR) $(TEST_NAME)
 
 fclean: clean
 	rm -rf $(LIB_DIR) $(BIN_DIR)
